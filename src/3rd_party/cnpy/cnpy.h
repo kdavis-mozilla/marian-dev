@@ -17,6 +17,10 @@
 #include<map>
 #include <memory>
 
+#ifdef __APPLE__
+#include <unistd.h>
+#endif
+
 namespace cnpy {
 
     struct NpyArray {

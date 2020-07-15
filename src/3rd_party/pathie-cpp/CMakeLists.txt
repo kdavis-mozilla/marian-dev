@@ -4,5 +4,7 @@ include_directories(include)
 
 FILE(GLOB PathieCppSources src/*.cpp)
 if (NOT TARGET pathie-cpp)
+  find_package(Iconv REQUIRED)
   add_library(pathie-cpp OBJECT ${PathieCppSources})
+  target_link_libraries(pathie-cpp PRIVATE ${Iconv_LIBRARIES})
 endif()

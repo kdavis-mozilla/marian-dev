@@ -219,8 +219,13 @@ if(COMPILE_SERVER)
   set(EXECUTABLES ${EXECUTABLES} marian_server)
 endif(COMPILE_SERVER)
 
-if(APPLE) # This is a dependency of pathie but I can't seem to link it into that CMakeLists because we're not compiling it as a library.
-   set(EXT_LIBS ${EXT_LIBS} iconv)
+if(APPLE)
+  find_package(Iconv)
+  if(Iconv_FOUND)
+    set(EXT_LIBS ${EXT_LIBS} ${Iconv_LIBRARIES} ${Iconv_LIBRARY})
+  else(Iconv_FOUND)
+    message(SEND_ERROR "Cannot find iconv libraries. Terminating.")
+  endif(Iconv_FOUND)
 endif()
 
 foreach(exec ${EXECUTABLES})
